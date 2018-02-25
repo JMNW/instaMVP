@@ -2,15 +2,7 @@ const model = require("./models/model");
 const getAllSubs = require("./models/getAllSubs");
 const johnny = require("./models/johnny");
 const comment = require("./models/comment");
-
-// const getAllSubs = require('./models/getAllSubs')
-
-const johnny = require('./models/johnny');
-
-const comment = require('./models/postComment');
-
 const will = require('./models/willEndpoints');
-
 
 module.exports = {
 
@@ -33,7 +25,9 @@ getFollowing: (req, res) => {
 },
 
   getSubLikes: (req, res) => {
-    res.send('getSubsLikes Success');
+    johnny.getLikes(req).then(function(likes){
+      res.send(likes)
+    })
   },
 
   getSubComments: (req, res) => {
@@ -44,7 +38,10 @@ getFollowing: (req, res) => {
   },
 
   getUserInfo: (req, res) => {
-    res.send('getUserInfo Success');
+    johnny.getUserInfo(req).then(function(info){
+      console.log(info);
+      res.send(info)
+    })
   },
 
   getPendingFollowers: (req, res) => {
@@ -55,7 +52,12 @@ getFollowing: (req, res) => {
   },
 
   postInfo: (req, res) => {
-    res.send('post Info Success');
+    johnny.createUser(req).then(function(result){
+      res.send('User Created!');
+    })
+    .catch(function(error){
+      console.log('ERRROR: ', error);
+    })
   },
 
   submit: (req, res) => {
@@ -104,19 +106,20 @@ getFollowing: (req, res) => {
   },
 
   deleteFollower: (req, res) => {
-    res.send('delete Follower Success');
+    johnny.deleteFollower(req).then(function(follower){
+      res.send('Deleted Follower')
+    })
+  },
+
+  deleteFollowing: (req, res) => {
+    johnny.deleteFollowing(req).then(function(follower){
+      res.send('Unfollowed')
+    })
   },
 
   deleteUser: (req, res) => {
-    res.send('delete User Success');
-  }
-
-
-
-
-
-
-
+      res.send('deleted user!');
+  },
 
 
 }

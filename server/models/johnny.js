@@ -3,15 +3,19 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 var createUser = function(req) {
-  db.Users.create(req.body);
+  return db.Users.create(req.body);
 };
 
 var getLikes = function(req) {
-  db.Likes.find(req.params);
+  return db.Likes.find({
+    where: req.params
+  });
 };
 
-var getInfo = function(req) {
-  db.Users.find(req.params);
+var getUserInfo = function(req) {
+  return db.Users.find({
+    where: req.params
+  });
 };
 
 var getFollowers = function(req) {
@@ -78,9 +82,25 @@ var getFollowing = function(req) {
   });
 };
 
+var deleteFollower = function(req) {
+    return db.Followers.destroy({
+        where: req.body
+      })
+}
+
+var deleteFollowing = function(req) {
+  return db.Followers.destroy({
+      where: req.body
+    })
+}
+
+
 module.exports = {
   createUser,
   getLikes,
+  getUserInfo,
   getFollowers,
-  getFollowing
+  getFollowing,
+  deleteFollower,
+  deleteFollowing
 };
