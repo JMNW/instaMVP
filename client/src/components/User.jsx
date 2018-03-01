@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './Home/Home.jsx';
 import PostsContainerPage from './User/PostsContainer.js';
+import Following from './Following.jsx';
+import Followers from './Followers.jsx';
 
 class User extends React.Component {
   constructor (props) {
@@ -18,6 +20,8 @@ class User extends React.Component {
         <h1>User Page</h1>
         
         <PostsContainerPage />
+        <Following/>
+        <Followers/>
         <Route path="/home" component={Home} />
       </div>
     );

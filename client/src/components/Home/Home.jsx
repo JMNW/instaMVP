@@ -24,24 +24,18 @@ const mapStateToProps = state => {
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.getSubmissions = this.getSubmissions.bind(this);
   }
 
-  getSubmissions() {
-    console.log(this.props);
+  componentDidMount() {
     axios
       .get("/subs")
       .then(response => {
-        console.log("THIS IS THE RESPONSE ", response.data);
-        console.log("this is our props ", this.props.updateTimeline);
         this.props.updateTimeline(response.data);
       })
       .catch(error => {
         console.log("ERROR IS: ", error);
       });
   }
-
- 
 
   render() {
     return (
@@ -67,9 +61,8 @@ class Home extends React.Component {
 
         <div id="timeline">
           <h1>My Timeline</h1>
-          <button onClick={this.getSubmissions}>GET SUBMISSIONS</button>
-          {this.props.timelineState.map(item => {
-            return <div>{item.caption}</div>;
+          {this.props.timelineState.map((item, i) => {
+            return <div key={i}>{item.caption}</div>;
           })}
 
           <Timeline />
@@ -77,7 +70,6 @@ class Home extends React.Component {
         <Route path="/submit" component={Submit} />
         <Route path="/add" component={AddContainer} />
         <Route path="/requests" component={Requests} />
-        {/* <Route path="/user" component={User} /> */}
       </div>
     );
   }

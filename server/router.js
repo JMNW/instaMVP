@@ -9,6 +9,7 @@ router.get('/likes/:sub', controller.getSubLikes);
 router.get('/comments/:sub', controller.getSubComments);
 router.get('/pending/:user', controller.getPendingFollowers);
 router.get('/info/:username', controller.getUserInfo);
+router.get('/subs/following/:user',controller.getSubsByFollowing);
 
 // router.post('/login', controller.login);
 router.post('/info', controller.postInfo);

@@ -63,7 +63,7 @@ var getFollowing = function(req) {
 		}).then(results => {
 			var list = [];
 			results.forEach(element => {
-				list.push(element.dataValues.id);
+				list.push(element.dataValues.host_id);
 			});
 			return db.Users.findAll({
 				where: {
@@ -94,6 +94,38 @@ var deleteFollowing = function(req) {
 	});
 };
 
+var getSubsByFollowing = function(req){
+	return db.Users.findAll({
+		where: {
+			username: req.params.user
+		}
+	}).then( result => {
+		// console.log(result);
+		return db.Followers.findAll({
+			where: {
+				follower_id: result[0].dataValues.id
+			}
+		}).then(results => {
+			var list = [];
+			results.forEach(element => {
+				list.push(element.dataValues.host_id)
+			})
+			return db.Submissions.findAll({
+				where: {
+					user_id: {
+						[Op.or]: list
+					}
+				}
+			}).then(results => {
+				var list = results.map( (element) => {
+					return element.dataValues;
+				})
+				console.log(list);
+				return list;
+			})
+		})
+	})
+}
 
 module.exports = {
 	createUser,
@@ -101,6 +133,7 @@ module.exports = {
 	getUserInfo,
 	getFollowers,
 	getFollowing,
+	getSubsByFollowing,
 	deleteFollower,
 	deleteFollowing
 };
