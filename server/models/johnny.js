@@ -32,10 +32,14 @@ var getFollowers = function(req) {
 				host_id: result[0].dataValues.id
 			}
 		}).then(results => {
+			console.log('RESULTS HEREEE ', results);
 			var list = [];
 			results.forEach(element => {
 				list.push(element.dataValues.id);
 			});
+			if(list.length === 0){
+				return [];
+			}
 			return db.Users.findAll({
 				where: {
 					id: {
@@ -43,6 +47,7 @@ var getFollowers = function(req) {
 					}
 				}
 			}).then(function(results) {
+				console.log(results)
 				var list = [];
 				results.forEach(function(element) {
 					list.push(element.dataValues);
@@ -68,6 +73,9 @@ var getFollowing = function(req) {
 			results.forEach(element => {
 				list.push(element.dataValues.host_id);
 			});
+			if(list.length === 0){
+				return [];
+			}
 			return db.Users.findAll({
 				where: {
 					id: {

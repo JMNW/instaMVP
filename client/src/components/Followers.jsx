@@ -26,6 +26,7 @@ class Followers extends React.Component {
   showFollowers() {
     //should pull current user from state later on
     axios.get(`/followers/${this.props.currUser}`).then((response) => {
+      console.log('CURR USER', this.props.currUser)
       console.log('THIS IS THE RESPONSE ', response.data);
       console.log('this is our props ', this.props.updateFollowers);
       this.props.updateFollowers(response.data);
