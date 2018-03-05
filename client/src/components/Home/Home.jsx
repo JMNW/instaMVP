@@ -19,9 +19,8 @@ import { browerHistory, Redirect } from "react-router";
 import Comment from "../Comment/Comment.jsx";
 import LikesContainer from "./Likes.jsx";
 import ReactFilestack, { client } from "filestack-react";
-import {Image, Circle, Grid, Row, Col} from 'react-bootstrap';
-import '../../styles/button.css';
-
+import { Image, Circle, Grid, Row, Col } from "react-bootstrap";
+import "../../styles/button.css";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -101,20 +100,20 @@ class Home extends React.Component {
         <h1>Insta Home</h1>
         <nav>
           <Row>
-            <Link to="/submit">Submit</Link>
-            <Link to="/add" />
+            <Link to="/add">
+              {" "}
+              <button className="btn">Upload a Picture!</button>
+            </Link>
+            <Col xs={6} md={4} />
             <Col xs={6} md={4}>
-              Add a Picture
-              <AddContainer />
+              <Link to="/requests" > <button className="btn">Follow Someone!</button> </Link>
+              {/* <Requests /> */}
             </Col>
-              <Col xs={6} md={4}>
-              <Link to="/requests"></Link>
-              <Requests />
-    </Col>
 
-              <Link to="/user"><button className="btn">Users</button></Link>
-
-      </Row>
+            <Link to="/user">
+              <button className="btn">Users</button>
+            </Link>
+          </Row>
         </nav>
 
         <div id="timeline" align="center">
