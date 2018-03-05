@@ -19,8 +19,9 @@ import { browerHistory, Redirect } from "react-router";
 import Comment from "../Comment/Comment.jsx";
 import LikesContainer from "./Likes.jsx";
 import ReactFilestack, { client } from "filestack-react";
-import { Image, Circle, Grid, Row, Col } from "react-bootstrap";
-import "../../styles/button.css";
+import {Image, Circle, Grid, Row, Col} from 'react-bootstrap';
+import '../../styles/button.css';
+import $ from 'jquery';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -88,6 +89,7 @@ class Home extends React.Component {
       .get(`/subs/following/${this.props.currUser}`)
       .then(response => {
         this.props.updateTimeline(response.data);
+        $( ".login" ).hide();
       })
       .catch(error => {
         console.log("ERROR IS: ", error);
@@ -96,7 +98,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <div className="post-grid">
         <h1>Insta Home</h1>
         <nav>
           <Row>
@@ -123,7 +125,7 @@ class Home extends React.Component {
               <div className="post-container" key={i}>
                 <h3>{item.username}</h3>
                 <img
-                  width="40%"
+                  width="100%"
                   src={item.image_url}
                   className={this.state.filter}
                   onClick={() => this.filterRandom()}
@@ -142,7 +144,7 @@ class Home extends React.Component {
         <Route path="/add" component={AddContainer} />
 
         <Route path="/requests" component={Requests} />
-      </Grid>
+      </div>
     );
   }
 }

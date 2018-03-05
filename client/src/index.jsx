@@ -112,6 +112,10 @@ class App extends React.Component {
     });
   }
 
+  hide() {
+
+  }
+
   render(props) {
     return (<div onScroll={this.scrollMe}>
       <div id="header">
@@ -122,14 +126,14 @@ class App extends React.Component {
           </h1>
         </div>
       </div>
-      <div className="login" align="center">
-        <button id="btnLogin" onClick={() => this.login()} className="btn btn-action">
+      <div className="login" align="center" >
+        <button id="btnLogin" onClick={() => this.login()} className="btn arrow email">
           Login
         </button>
         <input type="email" id="email" placeholder="Email"/>
         <input type="password" id="password" placeholder="Password"/>
 
-        <button id="btnSignUp" onClick={() => this.signUp()} className="btn btn-secondary">
+        <button id="btnSignUp" onClick={() => this.signUp()} className="btn email">
           Sign Up
         </button>
         <button id="btnLogout" onClick={() => this.logout()} className="btn btn-action hide">

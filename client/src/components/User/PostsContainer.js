@@ -48,8 +48,8 @@ class PostsContainer extends React.Component {
     this.props.userPostsState.forEach((post, i) => {
 
       content.push(
-        <div className="post-container" key={i}>
-          <Image width="100%" src={post.image_url} rounded="rounded" />
+        <div className="post-container"  key={i}>
+          <Image  src={post.image_url} width="100%" rounded="rounded" />
           <Comment postID={post.id} />
         </div>
       );
@@ -60,10 +60,13 @@ class PostsContainer extends React.Component {
 
   render() {
     return (
-      <div className="timeline" width="30%">
-        <h1>Posts</h1>
+      <div width="30%">
+      <h1>Posts</h1>
+      <div className="post-grid" width="30%">
+
 
         {this.postRender()}
+      </div>
       </div>
     );
   }
