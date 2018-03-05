@@ -26,6 +26,8 @@ import actions from "./Redux/actions/index";
 import {browerHistory, Redirect} from "react-router";
 import axios from 'axios'
 import config from '../../config.js';
+import AddContainer from '../src/components/Home/Add.jsx'
+import RequestsContainer from '../src/components/Home/Requests.jsx'
 
 
 const mapDispatchToProps = dispatch => {
@@ -120,10 +122,12 @@ class App extends React.Component {
           ? (<Redirect to="/home"/>)
           : (<Redirect to="/"/>))
       }
-      <Route exact="exact" path="/" component={LandingPage}/>
+      <Route path="/" component={LandingPage}/>
       <Route path="/home" component={Home}/>
       <Route path="/user" component={User}/>
       <Route path="/profile" component={Profile} />
+      <Route path="/add" component={AddContainer} />
+      <Route path="/requests" component={RequestsContainer} />
     </div>);
   }
 }
