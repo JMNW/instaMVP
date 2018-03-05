@@ -26,9 +26,29 @@ class PostsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {currClickedUser: null};
 
     this.getUserPosts = this.getUserPosts.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('GETS HERE');
+    this.getUserPosts();
+  }
+
+  componentWillReceiveProps(){
+    this.setState({currClickedUser: this.props.currClickedUser});
+    console.log(this.props.userPostsState)
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log('next state:' ,nextState.currClickedUser.username, 'nextprops:', nextProps.currClickedUser.username)
+    console.log('TEST HERE ', JSON.stringify(nextProps.currClickedUser.username) !== JSON.stringify(nextState.currClickedUser.username));
+    return JSON.stringify(nextProps.currClickedUser.username) !== JSON.stringify(nextState.currClickedUser.username);
+  }
+
+  componentWillUpdate(){
+    this.getUserPosts();
   }
 
   getUserPosts() {
@@ -37,9 +57,6 @@ class PostsContainer extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getUserPosts();
-  }
 
    // removed props from params think it was causing warnings
   postRender() {
