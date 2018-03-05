@@ -67,14 +67,14 @@ class Comment extends React.Component {
 
   render() {
     return (
-      <div align="center">
-        <div align="center">
+      <div width="100%" align="center">
+        <div width="100%" align="center">
 
-          <table>
+          <table className="comment-table"  width="90%">
             <tbody>
               <tr>
                 <td >
-                  <div className="overflow-wrapper">
+                  <div border="1" className="overflow-wrapper border-me">
                   {this.props.postCommentState
                     .filter((comment, i) => {
                       if (comment.submission_id === this.props.postID) {
@@ -97,32 +97,37 @@ class Comment extends React.Component {
                             </span>
 
                             <span className="commentMeta">
-                              <em />
+                              <em>{comment.createdAt}</em>
+
                             </span>
                           </span>
                         </div>
                       );
                     })}
                     </div>
-                  <form
+                  <form width="80%"
                     align="center"
                     className="form-inline sub-comments"
                     role="form"
                   >
-                    <input
-                      type="textbox"
+                    <textarea
+                      type="textarea" rows="30%" cols="80%"
                       className={this.props.postID}
                       placeholder="add comment"
-                    /> <br></br>
-
-                    <input
-                      type="button"
-                      value="ADD COMMENT"
-                      onClick={() => {
-                        this.addComment();
-                      }}
                     />
+
+
+
+
                   </form>
+                  <input
+                    type="button"
+                    className="btn"
+                    value="ADD COMMENT"
+                    onClick={() => {
+                      this.addComment();
+                    }}
+                  />
                 </td>
               </tr>
             </tbody>

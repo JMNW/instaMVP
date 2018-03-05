@@ -26,9 +26,9 @@ import actions from "./Redux/actions/index";
 import {browerHistory, Redirect} from "react-router";
 import axios from 'axios'
 import config from '../../config.js';
-import AddContainer from '../src/components/Home/Add.jsx'
-import RequestsContainer from '../src/components/Home/Requests.jsx'
-
+import AddContainer from '../src/components/Home/Add.jsx';
+import RequestsContainer from '../src/components/Home/Requests.jsx';
+import $ from 'jquery';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,6 +52,7 @@ class App extends React.Component {
     this.login = this.login.bind(this);
     this.signUp = this.signUp.bind(this);
     this.logout = this.logout.bind(this);
+    this.scrollMe = this.scrollMe.bind(this);
   }
 
   login() {
@@ -100,15 +101,34 @@ class App extends React.Component {
     });
   }
 
-  render(props) {
-    return (<div>
-      <div id="login">
-        <input type="email" id="email" placeholder="Email"/>
-        <input type="password" id="password" placeholder="Password"/>
+  scrollMe() {
+    $(window).scroll(function() {
+      var sc = $(window).scrollTop()
+      if (sc > 50) {
+        $("#header-sroll").addClass("small")
+      } else {
+        $("#header-sroll").removeClass("small")
+      }
+    });
+  }
 
+  render(props) {
+    return (<div onScroll={this.scrollMe}>
+      <div id="header">
+        <div id="header-sroll">
+          <h1>
+            <img id="img-head" src="https://static.wixstatic.com/media/ca412f_955459dfdbad41cbaeb4511791f0f067~mv2.png"></img>
+            Instagrammy-gram
+          </h1>
+        </div>
+      </div>
+      <div className="login" align="center">
         <button id="btnLogin" onClick={() => this.login()} className="btn btn-action">
           Login
         </button>
+        <input type="email" id="email" placeholder="Email"/>
+        <input type="password" id="password" placeholder="Password"/>
+
         <button id="btnSignUp" onClick={() => this.signUp()} className="btn btn-secondary">
           Sign Up
         </button>
@@ -116,6 +136,7 @@ class App extends React.Component {
           Log out
         </button>
       </div>
+
       {
         (
           this.props.currUser
