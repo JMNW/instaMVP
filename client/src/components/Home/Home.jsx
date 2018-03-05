@@ -101,6 +101,7 @@ class Home extends React.Component {
       <div className="post-grid">
         <h1>Insta Home</h1>
         <nav>
+<<<<<<< HEAD
           <Row>
             <Link to="/add">
               {" "}
@@ -116,6 +117,23 @@ class Home extends React.Component {
               <button className="btn">Users</button>
             </Link>
           </Row>
+=======
+
+            <Link to="/submit">Submit</Link>
+            <Link to="/add" />
+            <div>
+              Add a Picture
+              <AddContainer />
+            </div>
+              <div >
+              <Link to="/requests"></Link>
+              <Requests />
+    </div>
+
+              <Link to="/user"><button className="btn">Users</button></Link>
+
+
+>>>>>>> 8ca9e55d368ca5979d8dce81a514941c49faa8c2
         </nav>
 
         <div id="timeline" align="center">
