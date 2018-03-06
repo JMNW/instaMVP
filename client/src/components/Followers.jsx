@@ -41,7 +41,14 @@ class Followers extends React.Component {
   }
 
   clickUser(i) {
-    this.props.updateCurrClickedUser(this.props.followersState[i]);
+    axios
+      .get(`/subs/${this.props.currClickedUser.username}`)
+      .then(result => {
+        this.props.updateUserPosts(result.data);
+      })
+      .then(() =>
+        this.props.updateCurrClickedUser(this.props.followersState[i])
+      );
   }
 
   render() {

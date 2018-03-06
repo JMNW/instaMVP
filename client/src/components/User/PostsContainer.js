@@ -26,29 +26,20 @@ class PostsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {currClickedUser: null};
+    this.state = {clicked: false};
 
     this.getUserPosts = this.getUserPosts.bind(this);
   }
 
   componentDidMount() {
-    console.log('GETS HERE');
     this.getUserPosts();
   }
 
   componentWillReceiveProps(){
     this.setState({currClickedUser: this.props.currClickedUser});
-    console.log(this.props.userPostsState)
-  }
-
-  shouldComponentUpdate(nextProps, nextState){
-    console.log('next state:' ,nextState.currClickedUser.username, 'nextprops:', nextProps.currClickedUser.username)
-    console.log('TEST HERE ', JSON.stringify(nextProps.currClickedUser.username) !== JSON.stringify(nextState.currClickedUser.username));
-    return JSON.stringify(nextProps.currClickedUser.username) !== JSON.stringify(nextState.currClickedUser.username);
-  }
-
-  componentWillUpdate(){
-    this.getUserPosts();
+    console.log('gets to component will receive props');
+    console.log(this.props.userPostsState);
+    this.postRender();
   }
 
   getUserPosts() {
@@ -78,7 +69,6 @@ class PostsContainer extends React.Component {
     return (
       <Grid className="container">
         <h1>Posts</h1>
-
         {this.postRender()}
       </Grid>
     );
