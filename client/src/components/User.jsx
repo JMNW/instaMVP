@@ -50,11 +50,7 @@ class User extends React.Component {
   render() {
 
     return (<div>
-      <nav>
-        <Link to="/home">Home</Link>
-        <Link to="/profile">Profile</Link>
-      </nav>
-      <button onClick={() => this.clickMyPage()}>My Page</button>
+    
       <h1>{this.props.currClickedUser.username.split('@')[0]}</h1>
       <Following/>
       <Followers/>

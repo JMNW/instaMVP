@@ -26,9 +26,9 @@ import actions from "./Redux/actions/index";
 import {browerHistory, Redirect} from "react-router";
 import axios from 'axios'
 import config from '../../config.js';
-import AddContainer from '../src/components/Home/Add.jsx'
-import RequestsContainer from '../src/components/Home/Requests.jsx'
-
+import AddContainer from '../src/components/Home/Add.jsx';
+import RequestsContainer from '../src/components/Home/Requests.jsx';
+import $ from 'jquery';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,6 +52,7 @@ class App extends React.Component {
     this.login = this.login.bind(this);
     this.signUp = this.signUp.bind(this);
     this.logout = this.logout.bind(this);
+    this.scrollMe = this.scrollMe.bind(this);
   }
 
   login() {
@@ -100,22 +101,56 @@ class App extends React.Component {
     });
   }
 
+  scrollMe() {
+    $(window).scroll(function() {
+      var sc = $(window).scrollTop()
+      if (sc > 50) {
+        $("#header-sroll").addClass("small")
+      } else {
+        $("#header-sroll").removeClass("small")
+      }
+    });
+  }
+
+componentDidMount() {
+        $(".showme").hide();
+}
+
   render(props) {
-    return (<div>
-      <div id="login">
+    return (<div onScroll={this.scrollMe}>
+      <div id="header">
+        <div id="header-sroll">
+          <h1>
+            <img id="img-head" src="https://static.wixstatic.com/media/ca412f_955459dfdbad41cbaeb4511791f0f067~mv2.png"></img>
+            Instagrammy-gram
+
+            <Link align="right" className="mastb" to="/user">
+              <span className="showme">Profile</span>
+            </Link>
+            <Link align="right" className="mastb" to="/home">
+          <span className="showme">Timeline</span>
+            </Link>
+          </h1>
+
+        </div>
+
+
+      </div>
+      <div className="login" align="center" >
+        <button id="btnLogin" onClick={() => this.login()} className="btn arrow email">
+          Login
+        </button>
         <input type="email" id="email" placeholder="Email"/>
         <input type="password" id="password" placeholder="Password"/>
 
-        <button id="btnLogin" onClick={() => this.login()} className="btn btn-action">
-          Login
-        </button>
-        <button id="btnSignUp" onClick={() => this.signUp()} className="btn btn-secondary">
+        <button id="btnSignUp" onClick={() => this.signUp()} className="btn email">
           Sign Up
         </button>
         <button id="btnLogout" onClick={() => this.logout()} className="btn btn-action hide">
           Log out
         </button>
       </div>
+
       {
         (
           this.props.currUser

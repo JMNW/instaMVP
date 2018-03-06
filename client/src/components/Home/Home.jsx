@@ -1,43 +1,33 @@
 import React from "react";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  withRouter
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link, withRouter} from "react-router-dom";
 import Submit from "./Submit.jsx";
 import AddContainer from "./Add.jsx";
 import Requests from "./Requests.jsx";
 import User from "../User.jsx";
 import Timeline from "./Timeline/Timeline.jsx";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import actions from "../../Redux/actions/index";
 import axios from "axios";
 import LandingPage from "../LandingPage.jsx";
-import { browerHistory, Redirect } from "react-router";
+import {browerHistory, Redirect} from "react-router";
 import Comment from "../Comment/Comment.jsx";
 import LikesContainer from "./Likes.jsx";
-import ReactFilestack, { client } from "filestack-react";
-import { Image, Circle, Grid, Row, Col } from "react-bootstrap";
-import "../../styles/button.css";
+import ReactFilestack, {client} from "filestack-react";
+import {Image, Circle, Grid, Row, Col} from 'react-bootstrap';
+import '../../styles/button.css';
+import $ from 'jquery';
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateTimeline: submissions =>
-      dispatch(actions.updateTimeline(submissions)),
+    updateTimeline: submissions => dispatch(actions.updateTimeline(submissions)),
     updateCurrUser: user => dispatch(actions.updateCurrUser(user)),
-    updateAddState: (image_url, caption) =>
-      dispatch(actions.updateAddState(image_url, caption))
+    updateAddState: (image_url, caption) => dispatch(actions.updateAddState(image_url, caption))
   };
 };
 
 const mapStateToProps = state => {
-  return {
-    currUser: state.currUser,
-    timelineState: state.timelineState,
-    addState: state.addState
-  };
+  return {currUser: state.currUser, timelineState: state.timelineState, addState: state.addState};
 };
 
 const filters = [
@@ -84,66 +74,58 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`/subs/following/${this.props.currUser}`)
-      .then(response => {
-        this.props.updateTimeline(response.data);
-      })
-      .catch(error => {
-        console.log("ERROR IS: ", error);
-      });
+    axios.get(`/subs/following/${this.props.currUser}`).then(response => {
+      this.props.updateTimeline(response.data);
+      $(".login").hide();
+      $(".showme").show();
+    }).catch(error => {
+      console.log("ERROR IS: ", error);
+    });
   }
 
   render() {
-    return (
-      <Grid>
-        <h1>Insta Home</h1>
-        <nav>
-          <Row>
-            <Link to="/add">
-              {" "}
-              <button className="btn">Upload a Picture!</button>
-            </Link>
-            <Col xs={6} md={4} />
-            <Col xs={6} md={4}>
-              <Link to="/requests" > <button className="btn">Follow Someone!</button> </Link>
-              {/* <Requests /> */}
-            </Col>
+    return (<div className="post-grid">
+      <h1>Insta Home</h1>
+      <nav>
+        <Link to="/add">
+          {" "}
+          <button className="btn">Upload a Picture!</button>
+        </Link>
 
-            <Link to="/user">
-              <button className="btn">Users</button>
-            </Link>
-          </Row>
-        </nav>
+        <Link to="/requests">
+          <button className="btn">Follow Someone!</button>
+        </Link>
+        {/* <Requests /> */}
 
-        <div id="timeline" align="center">
-          <h1>My Timeline</h1>
-          {this.props.timelineState.map((item, i) => {
-            return (
-              <div className="post-container" key={i}>
-                <h3>{item.username}</h3>
-                <img
-                  width="40%"
-                  src={item.image_url}
-                  className={this.state.filter}
-                  onClick={() => this.filterRandom()}
-                />
-                <LikesContainer postID={item.id} />
-                <p>{item.caption}</p>
-                <Comment postID={item.id} />
-              </div>
-            );
-          })}
-          {!this.props.currUser ? <Redirect to="/" /> : null}
-        </div>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/user" component={User} />
-        <Route path="/submit" component={Submit} />
-        <Route path="/add" component={AddContainer} />
 
-        <Route path="/requests" component={Requests} />
-      </Grid>
-    );
+      </nav>
+
+      <div id="timeline" align="center">
+        <h1>My Timeline</h1>
+        {
+          this.props.timelineState.map((item, i) => {
+            return (<div className="post-container" key={i}>
+              <h3>{item.username}</h3>
+              <img width="100%" src={item.image_url} className={this.state.filter} onClick={() => this.filterRandom()}/>
+              <LikesContainer postID={item.id}/>
+              <p>{item.caption}</p>
+              <Comment postID={item.id}/>
+            </div>);
+          })
+        }
+        {
+          !this.props.currUser
+            ? <Redirect to="/"/>
+            : null
+        }
+      </div>
+      <Route exact="exact" path="/" component={LandingPage}/>
+      <Route path="/user" component={User}/>
+      <Route path="/submit" component={Submit}/>
+      <Route path="/add" component={AddContainer}/>
+
+      <Route path="/requests" component={Requests}/>
+    </div>);
   }
 }
 

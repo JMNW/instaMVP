@@ -1,0 +1,61 @@
+#header {
+    height:100px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+
+
+#header-sroll {
+    position:fixed;
+    height: 100px;
+    background:white;
+    left:0;
+    top:0;
+    float:left;
+    width:100%;
+    -ms-transition:     all 0.3s ease-out;
+    -moz-transition:    all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition:      all 0.3s ease-out;
+    transition:         all 0.3s ease-out;
+}
+#header-sroll h1 {
+    font-size: 30px;
+    font-family: Arial;
+    text-align: left;
+    line-height: 50px;
+    margin-left: 10px;
+     -ms-transition:    all 0.3s ease-out;
+    -moz-transition:    all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition:      all 0.3s ease-out;
+    transition:         all 0.3s ease-out;
+}
+#header-sroll.small {
+    height: 70px;
+    line-height: 35px;
+}
+#header-sroll.small h1{
+    height: 70px;
+    line-height: 35px;
+    font-size: 25px;
+}
+
+#img-head {
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.login {
+  align: center;
+  vertical-align: middle;
+
+  margin-top: 20%
+}
+
+.mastb {
+  display:inline;
+  font-size: 14pt;
+}

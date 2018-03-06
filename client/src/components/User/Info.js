@@ -27,7 +27,7 @@ class Info extends React.Component {
   render () {
     return (
       <div>
-        <span>About: </span>
+  
         {this.props.userInfoState}
       </div>
     );

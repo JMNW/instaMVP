@@ -80,7 +80,7 @@ class Add extends React.Component {
         onChange={this.onCaptionChange}
       />
 
-      <ReactFilestack
+    <ReactFilestack className="btn"
         apikey="Af4grpuWtTk6IdNCYHbTbz"
         buttonText="Upload a picture!"
         buttonClass="classname"

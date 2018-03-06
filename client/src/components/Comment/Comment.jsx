@@ -1,25 +1,20 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import {Route, Link} from "react-router-dom";
 import axios from "axios";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import actions from "../../Redux/actions/index";
 import $ from "jquery";
 import "../../../dist/styles.css";
-
+import "../User/PostsContainer.js"
 
 const mapDispatchToProps = dispatch => {
   return {
-    updatePostComments: comments =>
-      dispatch(actions.updatePostComments(comments))
+    updatePostComments: comments => dispatch(actions.updatePostComments(comments))
   };
 };
 
 const mapStateToProps = state => {
-  return {
-    postCommentState: state.postCommentState,
-    timelineState: state.timelineState,
-    currUserInfo: state.currUserInfo
-  };
+  return {postCommentState: state.postCommentState, timelineState: state.timelineState, currUserInfo: state.currUserInfo};
 };
 
 class Comment extends React.Component {
@@ -36,19 +31,15 @@ class Comment extends React.Component {
 
   addComment(props) {
     var content = $(`.${this.props.postID}`).val();
-    axios
-      .post("/comment", {
-        user_id: this.props.currUserInfo.id,
-        submission_id: this.props.postID,
-        content: content
-      })
-      .then(response => {
-        $(`.${this.props.postID}`).val("");
-        response.data.username = this.props.currUserInfo.username;
-        this.props.updatePostComments(response.data);
-      })
-      .catch(error => {})
-      .then(axios.get(`/comments/${this.props.postID}`))
+    axios.post("/comment", {
+      user_id: this.props.currUserInfo.id,
+      submission_id: this.props.postID,
+      content: content
+    }).then(response => {
+      $(`.${this.props.postID}`).val("");
+      response.data.username = this.props.currUserInfo.username;
+      this.props.updatePostComments(response.data);
+    }).catch(error => {}).then(axios.get(`/comments/${this.props.postID}`))
   }
 
   componentDidMount(props) {
@@ -66,69 +57,52 @@ class Comment extends React.Component {
   }
 
   render() {
-    return (
-      <div align="center">
-        <div align="center">
 
-          <table>
-            <tbody>
-              <tr>
-                <td >
-                  <div className="overflow-wrapper">
-                  {this.props.postCommentState
-                    .filter((comment, i) => {
-                      if (comment.submission_id === this.props.postID) {
-                        return comment;
-                      }
-                    })
-                    .map((comment, i) => {
-                      return (
-                        <div align="left" key={i}>
-                          <span className="commentBody">
-                            <span className="userCell">
-                              <a href={"#"} className="userLink">
-                                <strong>{comment.username.split('@')[0]} </strong>
-                              </a>
-                            </span>
+    return (<div >
+      <div  align="center">
 
-                            <span className="commentText">
-                              {comment.content}
-                            </span>
+        <div className="comment-table">
+        <div border="1" className="overflow-wrapper border-me">
+          {
+            this.props.postCommentState.filter((comment, i) => {
+              if (comment.submission_id === this.props.postID) {
+                return comment;
+              }
+            }).map((comment, i) => {
+              return (<div align="left" key={i}>
+                <span className="commentBody">
+                  <span className="userCell">
+                    <a href={"#"} className="userLink">
 
-                            <span className="commentMeta">
-                              <em />
-                            </span>
-                          </span>
-                        </div>
-                      );
-                    })}
-                    </div>
-                  <form
-                    align="center"
-                    className="form-inline sub-comments"
-                    role="form"
-                  >
-                    <input
-                      type="textbox"
-                      className={this.props.postID}
-                      placeholder="add comment"
-                    /> <br></br>
+                      <strong>{comment.username.split('@')[0]}
+                      </strong>
+                    </a>
+                  </span>
 
-                    <input
-                      type="button"
-                      value="ADD COMMENT"
-                      onClick={() => {
-                        this.addComment();
-                      }}
-                    />
-                  </form>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <span className="commentText">
+                    {comment.content}
+                  </span>
+
+                  <span className="commentMeta">
+                    <em>{comment.createdAt}</em>
+
+                  </span>
+                </span>
+              </div>);
+            })
+          }
+
         </div>
+
+          <textarea type="textarea" className={`${this.props.postID} comment-box`} placeholder="add comment"/>
+
+
+        <input type="button" className="btn" value="ADD COMMENT" onClick={() => {
+            this.addComment();
+          }}/>
       </div>
-    );
+    </div>
+  </div>);
   }
 }
 
