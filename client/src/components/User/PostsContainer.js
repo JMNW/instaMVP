@@ -37,8 +37,6 @@ class PostsContainer extends React.Component {
 
   componentWillReceiveProps(){
     this.setState({currClickedUser: this.props.currClickedUser});
-    console.log('gets to component will receive props');
-    console.log(this.props.userPostsState);
     this.postRender();
   }
 
@@ -56,7 +54,7 @@ class PostsContainer extends React.Component {
     this.props.userPostsState.forEach((post, i) => {
       content.push(
         <Col className="col-sm post-container" key={i} xs={6} md={4}>
-          <Image width="100%" src={post.image_url} rounded="rounded" />
+          <Image width="100%" src={post.image_url} rounded />
           <Comment postID={post.id} />
         </Col>
       );
