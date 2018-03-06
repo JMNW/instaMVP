@@ -87,7 +87,6 @@ class Comment extends React.Component {
                           <span className="commentBody">
                             <span className="userCell">
                               <a href={"#"} className="userLink">
-                                {console.log(comment, typeof comment.username)}
                                 <strong>{comment.username.split('@')[0]} </strong>
                               </a>
                             </span>

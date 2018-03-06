@@ -26,9 +26,18 @@ class PostsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {clicked: false};
 
     this.getUserPosts = this.getUserPosts.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserPosts();
+  }
+
+  componentWillReceiveProps(){
+    this.setState({currClickedUser: this.props.currClickedUser});
+    this.postRender();
   }
 
   getUserPosts() {
@@ -37,9 +46,6 @@ class PostsContainer extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getUserPosts();
-  }
 
    // removed props from params think it was causing warnings
   postRender() {
@@ -48,7 +54,7 @@ class PostsContainer extends React.Component {
     this.props.userPostsState.forEach((post, i) => {
       content.push(
         <Col className="col-sm post-container" key={i} xs={6} md={4}>
-          <Image width="100%" src={post.image_url} rounded="rounded" />
+          <Image width="100%" src={post.image_url} rounded />
           <Comment postID={post.id} />
         </Col>
       );
@@ -61,7 +67,6 @@ class PostsContainer extends React.Component {
     return (
       <Grid className="container">
         <h1>Posts</h1>
-
         {this.postRender()}
       </Grid>
     );
