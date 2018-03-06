@@ -57,6 +57,7 @@ class Comment extends React.Component {
   }
 
   render() {
+
     return (<div >
       <div  align="center">
 
@@ -90,6 +91,7 @@ class Comment extends React.Component {
               </div>);
             })
           }
+
         </div>
 
           <textarea type="textarea" className={`${this.props.postID} comment-box`} placeholder="add comment"/>

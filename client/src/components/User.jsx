@@ -21,19 +21,29 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {currUser: state.currUser,
   currClickedUser: state.currClickedUser,
-  currUserInfo: state.currUserInfo
+  currUserInfo: state.currUserInfo,
+  currClickedUser: state.currClickedUser
   };
 };
 
 class User extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      toggle: true
+    }
 
     this.clickMyPage = this.clickMyPage.bind(this);
   }
 
+  componentWillReceiveProps() {
+    this.setState({toggle: false});
+    setTimeout( () =>  {
+      this.setState({toggle: true})}, 0);
+   
+  }
+
   clickMyPage() {
-    console.log('HERE IS THE CURR USER INFO: ', this.props.currUserInfo)
     this.props.updateCurrClickedUser(this.props.currUserInfo);
   }
 
@@ -46,7 +56,8 @@ class User extends React.Component {
       <Followers/>
       <InfoPage/>
 
-      <PostsContainerPage/>
+      {this.state.toggle && <PostsContainerPage/>}
+
 
       <Route path="/home" component={Home}/>
       <Route path="/profile" component={Profile} />

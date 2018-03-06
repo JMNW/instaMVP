@@ -6,6 +6,7 @@ import actions from "../Redux/actions/index";
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateUserPosts: posts => dispatch(actions.updateUserPosts(posts)),
     updateFollowers: followers => dispatch(actions.updateFollowers(followers)),
     updateCurrUser: user => dispatch(actions.updateCurrUser(user)),
     updateCurrClickedUser: user => dispatch(actions.updateCurrClickedUser(user))
@@ -14,6 +15,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    userPostsState: state.userPostsState,
     followersState: state.followersState,
     currUser: state.currUser,
     currClickedUser: state.currClickedUser
@@ -39,8 +41,14 @@ class Followers extends React.Component {
   }
 
   clickUser(i) {
-    console.log('HERE IS THE CURRENT CLICKED ', this.props.currClickedUser)
-    this.props.updateCurrClickedUser(this.props.followersState[i]);
+    axios
+      .get(`/subs/${this.props.currClickedUser.username}`)
+      .then(result => {
+        this.props.updateUserPosts(result.data);
+      })
+      .then(() =>
+        this.props.updateCurrClickedUser(this.props.followersState[i])
+      );
   }
 
   render() {
