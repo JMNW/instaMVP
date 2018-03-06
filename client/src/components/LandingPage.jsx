@@ -7,9 +7,7 @@ class LandingPage extends React.Component {
 
   render () {
     return (
-      <div>
-        <h2>LOGIN DAWG</h2>
-      </div>
+    <span></span>
     );
   }
 }

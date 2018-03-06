@@ -62,11 +62,12 @@
   -moz-border-radius: 12;
   border-radius: 12px;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 80%;
   background: #34b2d9;
   padding: 10px 20px 10px 20px;
   margin: 0 2% 0 2%;
   text-decoration: none;
+  width: 150px;
 }
 
 .btn:hover {
@@ -77,4 +78,10 @@
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+
+
+.showme {
+  align: right;
+  margin: 30px;
 }

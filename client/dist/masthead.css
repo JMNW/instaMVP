@@ -50,6 +50,12 @@
 
 .login {
   align: center;
-  vertical-align: top;
-  display: inline;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  vertical-align: middle;
+
+  margin-top: 20%
+}
+
+.mastb {
+  display:inline;
+  font-size: 14pt;
 }

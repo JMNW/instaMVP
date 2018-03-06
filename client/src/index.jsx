@@ -112,9 +112,9 @@ class App extends React.Component {
     });
   }
 
-  hide() {
-
-  }
+componentDidMount() {
+        $(".showme").hide();
+}
 
   render(props) {
     return (<div onScroll={this.scrollMe}>
@@ -123,8 +123,18 @@ class App extends React.Component {
           <h1>
             <img id="img-head" src="https://static.wixstatic.com/media/ca412f_955459dfdbad41cbaeb4511791f0f067~mv2.png"></img>
             Instagrammy-gram
+
+            <Link align="right" className="mastb" to="/user">
+              <span className="showme">Profile</span>
+            </Link>
+            <Link align="right" className="mastb" to="/home">
+          <span className="showme">Timeline</span>
+            </Link>
           </h1>
+
         </div>
+
+
       </div>
       <div className="login" align="center" >
         <button id="btnLogin" onClick={() => this.login()} className="btn arrow email">
